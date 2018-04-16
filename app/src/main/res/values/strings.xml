@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KidKnowledegDialogDemo</string>
+    <string name="title">标题1</string>
+    <string name="messgae">描述的文字尽量控制在三行内，并且单行最右侧最好不要是标点符号。</string>
+    <string name="yes">确定</string>
+    <string name="no">取消</string>
+</resources>
