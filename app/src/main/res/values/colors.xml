@@ -9,4 +9,9 @@
     <color name="lite_blue">#ff359ff2</color>
     <color name="window_background">#00000000</color>
     <color name="black_de">#DE000000</color>
+    <color name="color_FAFAFA">#FAFAFA</color>
+    <color name="color_D9000000">#000000</color>
+    <color name="color_80000000">#80000000</color>
+    <color name="color_FF4990E2">#FF4990E2</color>
+
 </resources>
