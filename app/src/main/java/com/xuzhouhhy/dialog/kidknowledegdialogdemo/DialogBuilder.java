@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 public class DialogBuilder {
 
-    private View mView;
-
     /**
      * 带取消、确定、title、message
      *
@@ -30,7 +28,7 @@ public class DialogBuilder {
                                            @NonNull View.OnClickListener positiveListener,
                                            @NonNull View.OnClickListener negativeListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(getView(context, positiveStringId, negativeResourceId, titleStringId,
+        builder.setView(createView(context, positiveStringId, negativeResourceId, titleStringId,
                 messageStringId, positiveListener, negativeListener));
         return builder;
     }
@@ -53,7 +51,7 @@ public class DialogBuilder {
                                                        @NonNull View.OnClickListener positiveListener,
                                                        @NonNull View.OnClickListener negativeListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(getViewWitoutTitle(context, positiveStringId, negativeResourceId,
+        builder.setView(createViewWithoutTitle(context, positiveStringId, negativeResourceId,
                 messageStringId, positiveListener, negativeListener));
         return builder;
     }
@@ -73,7 +71,7 @@ public class DialogBuilder {
                                          int titleStringId, int messageStringId,
                                          @NonNull View.OnClickListener positiveListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(getViewWitoutNo(context, positiveStringId,
+        builder.setView(createViewWithoutNo(context, positiveStringId,
                 titleStringId, messageStringId, positiveListener));
         return builder;
     }
@@ -92,68 +90,45 @@ public class DialogBuilder {
                                                           int messageStringId,
                                                           @NonNull View.OnClickListener positiveListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(getViewWithoutNoAndTitle(context, positiveStringId,
-                messageStringId, positiveListener));
+        builder.setView(createViewWithoutNoAndTitle(context, positiveStringId, messageStringId,
+                positiveListener));
         return builder;
-    }
-
-    private View getViewWithoutNoAndTitle(@NonNull Context context,
-                                          int positiveStringId,
-                                          int messageStringId,
-                                          @NonNull View.OnClickListener positiveListener) {
-        if (mView == null) {
-            mView = createViewWithoutNoAndTitle(context, positiveStringId, messageStringId,
-                    positiveListener);
-        }
-        return mView;
     }
 
     private View createViewWithoutNoAndTitle(@NonNull Context context,
                                              int positiveStringId,
                                              int messageStringId,
                                              @NonNull View.OnClickListener positiveListener) {
-        mView = LayoutInflater.from(context)
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.layout_material_dialog, null);
-        AppCompatButton button = mView.findViewById(R.id.btn_p);
+        AppCompatButton button = view.findViewById(R.id.btn_p);
         button.setText(positiveStringId);
         button.setOnClickListener(positiveListener);
-        button = mView.findViewById(R.id.btn_n);
+        button = view.findViewById(R.id.btn_n);
         button.setVisibility(View.GONE);
-        TextView textView = mView.findViewById(R.id.title);
+        TextView textView = view.findViewById(R.id.title);
         textView.setVisibility(View.GONE);
-        textView = mView.findViewById(R.id.message);
+        textView = view.findViewById(R.id.message);
         textView.setText(messageStringId);
-        return mView;
+        return view;
     }
 
-    private View getViewWitoutNo(@NonNull Context context,
-                                 int positiveStringId,
-                                 int titleStringId, int messageStringId,
-                                 @NonNull View.OnClickListener positiveListener) {
-        mView = LayoutInflater.from(context)
+    private View createViewWithoutNo(@NonNull Context context,
+                                     int positiveStringId,
+                                     int titleStringId, int messageStringId,
+                                     @NonNull View.OnClickListener positiveListener) {
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.layout_material_dialog, null);
-        AppCompatButton button = mView.findViewById(R.id.btn_p);
+        AppCompatButton button = view.findViewById(R.id.btn_p);
         button.setText(positiveStringId);
         button.setOnClickListener(positiveListener);
-        button = mView.findViewById(R.id.btn_n);
+        button = view.findViewById(R.id.btn_n);
         button.setVisibility(View.GONE);
-        TextView textView = mView.findViewById(R.id.title);
+        TextView textView = view.findViewById(R.id.title);
         textView.setText(titleStringId);
-        textView = mView.findViewById(R.id.message);
+        textView = view.findViewById(R.id.message);
         textView.setText(messageStringId);
-        return mView;
-    }
-
-    private View getViewWitoutTitle(@NonNull Context context,
-                                    int positiveStringId, int negativeResourceId,
-                                    int messageStringId,
-                                    @NonNull View.OnClickListener positiveListener,
-                                    @NonNull View.OnClickListener negativeListener) {
-        if (mView == null) {
-            mView = createViewWithoutTitle(context, positiveStringId, negativeResourceId,
-                    messageStringId, positiveListener, negativeListener);
-        }
-        return mView;
+        return view;
     }
 
     private View createViewWithoutTitle(@NonNull Context context,
@@ -161,31 +136,19 @@ public class DialogBuilder {
                                         int messageStringId,
                                         @NonNull View.OnClickListener positiveListener,
                                         @NonNull View.OnClickListener negativeListener) {
-        mView = LayoutInflater.from(context)
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.layout_material_dialog, null);
-        AppCompatButton button = mView.findViewById(R.id.btn_p);
+        AppCompatButton button = view.findViewById(R.id.btn_p);
         button.setText(positiveStringId);
         button.setOnClickListener(positiveListener);
-        button = mView.findViewById(R.id.btn_n);
+        button = view.findViewById(R.id.btn_n);
         button.setText(negativeResourceId);
         button.setOnClickListener(negativeListener);
-        TextView textView = mView.findViewById(R.id.title);
+        TextView textView = view.findViewById(R.id.title);
         textView.setVisibility(View.GONE);
-        textView = mView.findViewById(R.id.message);
+        textView = view.findViewById(R.id.message);
         textView.setText(messageStringId);
-        return mView;
-    }
-
-    private View getView(@NonNull Context context,
-                         int positiveStringId, int negativeResourceId,
-                         int titleStringId, int messageStringId,
-                         @NonNull View.OnClickListener positiveListener,
-                         @NonNull View.OnClickListener negativeListener) {
-        if (mView == null) {
-            mView = createView(context, positiveStringId, negativeResourceId, titleStringId,
-                    messageStringId, positiveListener, negativeListener);
-        }
-        return mView;
+        return view;
     }
 
     private View createView(@NonNull Context context,
@@ -193,48 +156,19 @@ public class DialogBuilder {
                             int titleStringId, int messageStringId,
                             @NonNull View.OnClickListener positiveListener,
                             @NonNull View.OnClickListener negativeListener) {
-        mView = LayoutInflater.from(context)
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.layout_material_dialog, null);
-        AppCompatButton button = mView.findViewById(R.id.btn_p);
+        AppCompatButton button = view.findViewById(R.id.btn_p);
         button.setText(positiveStringId);
         button.setOnClickListener(positiveListener);
-        button = mView.findViewById(R.id.btn_n);
+        button = view.findViewById(R.id.btn_n);
         button.setText(negativeResourceId);
         button.setOnClickListener(negativeListener);
-        TextView textView = mView.findViewById(R.id.title);
+        TextView textView = view.findViewById(R.id.title);
         textView.setText(titleStringId);
-        textView = mView.findViewById(R.id.message);
+        textView = view.findViewById(R.id.message);
         textView.setText(messageStringId);
-        return mView;
+        return view;
     }
 
-//    private static class DialogView{
-//
-//        private Context mContext;
-//
-//        public DialogView(@NonNull Context context,
-//                          int positiveStringId, int negativeResourceId,
-//                          int titleStringId, int messageStringId,
-//                          @NonNull View.OnClickListener positiveListener,
-//                          @NonNull View.OnClickListener negativeListener){
-//            mContext=context;
-//            mView=LinearLayout.inflate(mContext,R.layout.layout_material_dialog,null);
-//            Button button = mView.findViewById(R.id.btn_p);
-//            button.setText(positiveStringId);
-//            button.setOnClickListener(positiveListener);
-//            button = mView.findViewById(R.id.btn_n);
-//            button.setText(negativeResourceId);
-//            button.setOnClickListener(negativeListener);
-//            TextView textView = mView.findViewById(R.id.title);
-//            textView.setText(titleStringId);
-//            textView=mView.findViewById(R.id.message);
-//            textView.setText(messageStringId);
-//        }
-//
-//        private View mView;
-//
-//        public DialogView createView(){
-//
-//        }
-//    }
 }
